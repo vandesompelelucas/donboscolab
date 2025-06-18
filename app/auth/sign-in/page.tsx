@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth, signIn } from "@/auth";
 import SignInGoogle from "@/components/sign-in-google";
 import { redirect } from "next/navigation";
 
@@ -15,6 +15,15 @@ export default async function SignIn() {
       </p>
       <div className="mt-4">
         <SignInGoogle />
+        <form
+          action={async (formData) => {
+            "use server";
+            await signIn("resend", formData);
+          }}
+        >
+          <input type="text" name="email" placeholder="Email" />
+          <button type="submit">Signin with Resend</button>
+        </form>
       </div>
     </div>
   );
